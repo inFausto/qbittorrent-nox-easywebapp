@@ -1,0 +1,4 @@
+# only the app goes into the image (no .env, qBittorrent data, media or git)
+*
+!torrent_web.py
+!dockerfile

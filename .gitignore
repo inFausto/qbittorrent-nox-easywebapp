@@ -1,0 +1,22 @@
+# secrets: only .env.example is tracked
+.env
+.env.*
+!.env.example
+
+# runtime data (qBittorrent profile, downloads, sorted media, logs)
+qbittorrent/
+downloads/
+media/
+*.log
+
+# backups and editor/OS files
+*.bak
+*~
+*.swp
+.DS_Store
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.pyc

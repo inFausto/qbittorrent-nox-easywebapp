@@ -1,0 +1,51 @@
+services:
+  torrent-web:
+    build:
+      context: .
+      dockerfile: dockerfile
+    image: torrent-web:latest
+    container_name: torrent-web
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT}:${WEB_PORT}"
+    env_file: .env
+    depends_on:
+      - qbittorrent-nox
+    # To reach a qBittorrent installed on the host, .env can use
+    # QBIT_URL=http://host.docker.internal:8082
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # ------------------------------------------------------------------
+  # qBittorrent-nox (official image).
+  # In .env: QBIT_URL=http://qbittorrent-nox:<QBT_WEBUI_PORT>
+  # When a torrent finishes it runs /scripts/qbt-sort.py, which moves
+  # it to /Films, /Musics or /SerieTv (log: /config/qbt-sort.log).
+  # ------------------------------------------------------------------
+  qbittorrent-nox:
+    image: qbittorrentofficial/qbittorrent-nox:${QBT_VERSION}
+    container_name: qbittorrent-nox
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-UTC}
+      - QBT_LEGAL_NOTICE=${QBT_LEGAL_NOTICE}
+      - QBT_TORRENTING_PORT=${QBT_TORRENTING_PORT}
+      - QBT_WEBUI_PORT=${QBT_WEBUI_PORT}
+    ports:
+      # bittorrent traffic
+      - "${QBT_TORRENTING_PORT}:${QBT_TORRENTING_PORT}/tcp"
+      - "${QBT_TORRENTING_PORT}:${QBT_TORRENTING_PORT}/udp"
+      # Web UI
+      - "${QBT_WEBUI_PORT}:${QBT_WEBUI_PORT}/tcp"
+    stop_grace_period: 30m
+    tmpfs:
+      - /tmp
+    volumes:
+      - ${QBT_CONFIG_PATH}:/config
+      - ./scripts:/scripts:ro
+      - ${QBT_DOWNLOADS_PATH}:/downloads
+      - ${QBT_FILMS_PATH}:/Films
+      - ${QBT_MUSICS_PATH}:/Musics
+      - ${QBT_SERIETV_PATH}:/SerieTv
