@@ -12,6 +12,7 @@ container that automatically sorts finished downloads into folders (e.g Films, M
   - `/Musics` if it is mostly audio
   - `/SerieTv` if the names look like episodes (`S01E02`, `1x02`, `Season 1`, …)
   - `/Films/Title (Year)/` otherwise
+(modify as needed)
 
 Based on the official qBittorrent-nox Docker image:
 [qbittorrent/docker-qbittorrent-nox (main)](https://github.com/qbittorrent/docker-qbittorrent-nox/tree/main)
@@ -21,7 +22,7 @@ Based on the official qBittorrent-nox Docker image:
 
 ```sh
 cp .env.example .env        # then change passwords and ports
-mkdir -p qbittorrent/config downloads media/Films media/Musics media/SerieTv
+mkdir -p qbittorrent/config downloads media/Films media/Musics media/SerieTv #or needed folder
 docker compose up -d --build
 ```
 
