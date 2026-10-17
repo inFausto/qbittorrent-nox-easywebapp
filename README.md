@@ -1,7 +1,7 @@
 # qbittorrent-nox-easywebapp
 
 A small LAN web page to search torrents through qBittorrent, plus a qBittorrent-nox
-container that automatically sorts finished downloads into `Films`, `Musics` and `SerieTv`.
+container that automatically sorts finished downloads into folders (e.g Films, Musics, SerieTv).
 
 - **torrent-web**: paste one or more searches (one per line), filter the results
   (type, seeders, size, text) and add them to qBittorrent with one click.
