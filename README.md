@@ -53,3 +53,7 @@ Then open the page at `http://SERVER-IP:<WEB_PORT>`.
 - `PUID`/`PGID` (default 1000) must be able to write the `media/` folders.
 - To use a qBittorrent already installed on the host, remove the `qbittorrent-nox`
   service and set `QBIT_URL=http://host.docker.internal:<port>` in `.env`.
+
+## License
+
+Copyright (C) 2026 inFausto. GPL-3.0-or-later: see [LICENSE](LICENSE).
